@@ -1,7 +1,7 @@
 dist: focal
 language: python
 python:
-  - '3.7'  # Python version
+  - '3.12'  # Python version
 
 # Install dependencies, including python-dotenv to load .env file
 install:
