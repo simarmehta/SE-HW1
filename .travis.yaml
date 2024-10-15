@@ -21,26 +21,58 @@
 #   on:
 #     branch: main
 
+# python:
+#   - 3.7  # or your preferred version
+# install:
+#   - pip install -r requirements.txt  # Install dependencies
+# before_script:
+#   - python manage.py migrate  # Run database migrations
+#   - python manage.py collectstatic --noinput  # Collect static files
+# script:
+#   - black --check .  # Check code formatting with black
+#   - flake8 .  # Linting with flake8
+#   - coverage run --source=mysite_swe1_app,polls manage.py test  # Run tests and check coverage
+# after_script:
+#   - coveralls  # Send coverage results to coveralls
+# deploy:
+#    provider: elasticbeanstalk
+#    access_key_id: "AKIAYNWNQPV4A7U4PVJ2"  # Store your AWS credentials in Travis CI
+#    secret_access_key: "mZ5rs9icAcgw2lNUdoeFT6GqTRw8h1SmJtrlercg" 
+#    region: "us-west-2"  # Change to your region
+#    app: "django-tutorial"  # Replace with your EB app name
+#    env: "django-env-1"  # Replace with your EB environment
+#    bucket_name: "elasticbeanstalk-us-west-2-579177839992"  # Replace with your S3 bucket name
+#    on:
+#     branch: main  # Deploy only when code is pushed to the main branch
+
+
+dist: focal
+language: python
 python:
-  - 3.7  # or your preferred version
+  - '3.12'  # Python version
+
+# Install dependencies, including python-dotenv to load .env file
 install:
-  - pip install -r requirements.txt  # Install dependencies
-before_script:
-  - python manage.py migrate  # Run database migrations
-  - python manage.py collectstatic --noinput  # Collect static files
+  - pip install -r requirements.txt
+  - pip install black flake8 coverage coveralls python-dotenv
+
+# Run formatting, linting, and test coverage
 script:
-  - black --check .  # Check code formatting with black
-  - flake8 .  # Linting with flake8
-  - coverage run --source=mysite_swe1_app,polls manage.py test  # Run tests and check coverage
-after_script:
-  - coveralls  # Send coverage results to coveralls
+  - black --check .
+  - flake8
+  - coverage run --source='.' manage.py test
+
+after_success:
+  - coveralls
+
+# Deploy the app to AWS Elastic Beanstalk
 deploy:
-   provider: elasticbeanstalk
-   access_key_id: "AKIAYNWNQPV4A7U4PVJ2"  # Store your AWS credentials in Travis CI
-   secret_access_key: "mZ5rs9icAcgw2lNUdoeFT6GqTRw8h1SmJtrlercg" 
-   region: "us-west-2"  # Change to your region
-   app: "django-tutorial"  # Replace with your EB app name
-   env: "django-env-1"  # Replace with your EB environment
-   bucket_name: "elasticbeanstalk-us-west-2-579177839992"  # Replace with your S3 bucket name
-   on:
-    branch: main  # Deploy only when code is pushed to the main branch
+  provider: elasticbeanstalk
+  region: $AWS_REGION
+  app: $EB_APP_NAME
+  env: $EB_ENV_NAME
+  bucket_name: elasticbeanstalk-us-west-2-579177839992
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  on:
+    branch: main
