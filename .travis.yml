@@ -28,6 +28,7 @@ deploy:
   bucket_name: elasticbeanstalk-us-west-2-579177839992
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
+  dpl_version: 1.10.16
   on:
     all_branches: true
     # branch:main
