@@ -22,7 +22,7 @@ after_success:
 # Deploy the app to AWS Elastic Beanstalk
 deploy:
   provider: elasticbeanstalk
-  region: $AWS_REGION
+  region: us-west-2
   app: $EB_APP_NAME
   env: $EB_ENV_NAME
   bucket_name: elasticbeanstalk-us-west-2-579177839992
