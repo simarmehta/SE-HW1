@@ -13,9 +13,10 @@ script:
   - black --check .
   - flake8
   - coverage run --source='.' manage.py test
+  - coverage report
 
 after_success:
-  - git clean -f
+  - git clean -
   - coveralls
   
 
