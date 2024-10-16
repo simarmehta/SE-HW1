@@ -4,6 +4,7 @@ from django.test import TestCase
 from .models import Poll
 from django.utils import timezone
 
+
 class PollModelTest(TestCase):
 
     def test_poll_creation(self):
