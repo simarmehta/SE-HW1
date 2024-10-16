@@ -1,15 +1,17 @@
 # polls/tests.py
 
 from django.test import TestCase
-from .models import Poll
 from django.utils import timezone
+from .models import Question
 
 
-class PollModelTest(TestCase):
+class QuestionModelTest(TestCase):
 
-    def test_poll_creation(self):
+    def test_question_creation(self):
         """
-        Test that a poll is created successfully.
+        Test that a Question is created successfully.
         """
-        poll = Poll.objects.create(question="Sample question?", pub_date=timezone.now())
-        self.assertEqual(poll.question, "Sample question?")
+        question = Question.objects.create(
+            question_text="What's new?", pub_date=timezone.now()
+        )
+        self.assertEqual(question.question_text, "What's new?")
