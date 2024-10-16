@@ -2,6 +2,7 @@ dist: focal
 language: python
 python:
   - '3.12'  # Python version
+cache: false
 
 # Install dependencies, including python-dotenv to load .env file
 install:
